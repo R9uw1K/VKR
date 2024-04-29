@@ -1,0 +1,34 @@
+{% extends 'articles/base.html' %}
+
+{% load static %}
+
+{% block title %}{{article.article_name}}{% endblock %}
+
+{% block content %}
+<div>
+    <div>
+        <h3 id="title">{{article.article_name}}</h3>
+        <div id="authors">
+            <i>{{article.article_author}}</i>
+        </div>
+        <div id="affiliation">
+            {% for key, value in article.article_keywords.items %}
+                {% for keyword in value %}
+                    <i>{{keyword}}</i>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <div id="volume">
+            {{article.article_release}}
+        </div>
+        <div>{{article.article_collection}}</div>
+		        <div>{{article.article_pages}}</div>
+        <div>Язык публикации: {{article.article_language}}</div>
+            </div>
+    <div>
+        <h4>Полный текст</h4>
+                    <div>
+                <a href="{% static 'articles/pdf/' %}{{article.article_path}}" target="_blank" ><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> Открыть (PDF)</a>            </div>
+            </div>
+    </div>
+{% endblock %}

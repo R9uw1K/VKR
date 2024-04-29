@@ -1,0 +1,54 @@
+{% extends 'articles/base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<main>
+    {% for article in articles %}
+
+    <div class="card" style="width: 18rem;display: inline">
+      <div class="card-body">
+        <h5 class="card-title" onclick="location.href='/{{article.id}}';">{{article.article_name}}</h5>
+        <p class="card-text">{{article.article_author}}</p>
+        <select style="margin-bottom: 2%" name="exports_{{article.id}}" id="export">
+          <option value="">Экспорт</option>
+          <option value="json">JSON</option>
+            <option value="yaml">YAML</option>
+            <option value="xml">XML</option>
+            <option value="rdf">RDF</option>
+
+        </select>
+        <a href="#" class="btn btn-primary" onclick="exportArticle({{article.id}})">Открыть</a>
+        <select style="margin-bottom: 2%" name="normalise_{{article.id}}" id="normalise">
+          <option value="">Нормализация</option>
+          <option value="dublincore">Dublin Core</option>
+            <option value="jats">JATS</option>
+
+        </select>
+        <a href="#" class="btn btn-primary" onclick="normaliseArticle({{article.id}})">Открыть</a>
+      </div>
+    </div>
+    <hr/>
+    {% endfor %}
+</main>
+{% endblock %}
+
+{% block js %}
+<script>
+    function exportArticle(article_id) {
+            console.log(article_id)
+            var articleId = article_id; // Здесь нужно указать идентификатор статьи
+            var format = document.querySelectorAll('select')[article_id*2-2].value;
+            var url = '/export/' + format + '/' + articleId + '/';
+            location.href=url;
+        }
+    function normaliseArticle(article_id) {
+            console.log(article_id)
+            var articleId = article_id; // Здесь нужно указать идентификатор статьи
+            console.log(document.querySelectorAll('select'));
+            var format = document.querySelectorAll('select')[article_id*2-1].value;
+            var url = '/normalize/' + format + '/' + articleId + '/';
+            location.href=url;
+    }
+</script>
+{% endblock %}

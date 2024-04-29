@@ -1,0 +1,8 @@
+li {
+    margin-right: 10%
+}
+
+.card-title:hover{
+    color: lightblue;
+    cursor: pointer;
+}
