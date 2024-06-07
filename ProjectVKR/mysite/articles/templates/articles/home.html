@@ -1,0 +1,41 @@
+{% extends 'articles/base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<main>
+    {% for collection in collections %}
+
+    <div class="card" style="width: 18rem;display: inline">
+      <div class="card-body">
+        <h5 class="card-title" onclick="open_collection('{{ collection }}')">{{collection}}</h5>
+      </div>
+    </div>
+    <hr/>
+    {% endfor %}
+</main>
+    <script>
+        function open_collection(collection) {
+            fetch("http://127.0.0.1:8000/collection", {
+              method: "POST",
+              body: JSON.stringify({
+                collection: collection,
+              }),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8"
+              }
+
+            })
+            .then((response) => {
+            return response.text();
+            })
+            .then((html) => {
+                window.document.body.innerHTML = html
+
+            });
+
+
+        }
+
+    </script>
+{% endblock %}

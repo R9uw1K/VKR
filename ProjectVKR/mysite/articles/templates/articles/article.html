@@ -25,6 +25,33 @@
 		        <div>{{article.article_pages}}</div>
         <div>Язык публикации: {{article.article_language}}</div>
             </div>
+        {% if article.article_issn %}
+            <div>
+            {{ article.article_issn }}
+            </div>
+        {% endif %}
+        {% if article.article_annotation %}
+            <h4>Аннотация</h4>
+            <div>
+            {{ article.article_annotation }}
+            </div>
+        {% endif %}
+        {% if article.article_keywords.items %}
+            <h4>Ключевые слова</h4>
+            <div>
+            {% for key, value in article.article_keywords.items %}
+                {% for keyword in value %}
+                    <i>{{keyword}}</i>
+                {% endfor %}
+            {% endfor %}
+            </div>
+        {% endif %}
+        {% if article.article_science %}
+            <h4>Научное направление</h4>
+            <div>
+            {{ article.article_science }}
+            </div>
+        {% endif %}
     <div>
         <h4>Полный текст</h4>
                     <div>
